@@ -10,10 +10,14 @@ class StudentSerializer(serializers.ModelSerializer[Student]):
 class ThemeSerializer(serializers.ModelSerializer[Theme]):
 
     student = StudentSerializer()
+    average_grade = serializers.SerializerMethodField()
 
     class Meta:
         model = Theme
-        fields = ["student", "name"]
+        fields = ["student", "name", "average_grade"]
+
+    def get_average_grade(self, obj):
+        return obj.calculate_average_grade()
 
 class GradeSerializer(serializers.HyperlinkedModelSerializer[Grade]):
 
@@ -22,4 +26,5 @@ class GradeSerializer(serializers.HyperlinkedModelSerializer[Grade]):
     class Meta:
         model = Grade
         fields = ["value", "theme"]
+
 
