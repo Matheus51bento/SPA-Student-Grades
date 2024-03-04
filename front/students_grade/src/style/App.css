@@ -1,0 +1,102 @@
+:root {
+  --blue300: cadetblue;
+  --blue400: rgb(74, 129, 131);
+  --blue600: rgb(32, 91, 93);
+  --black: rgb(30, 30, 30);
+}
+
+
+.App {
+  min-height: 100vh;
+  border: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+}
+
+body {
+  background-color: cadetblue;
+}
+
+/* .nav-menu {
+
+
+
+} */
+
+.add {
+  width:20px;
+  margin-left: 5px;
+  vertical-align: bottom;
+}
+
+.blue {
+  background-color: var(--blue400);
+}
+
+h1 {
+  color: aliceblue;
+  margin: 0;
+  padding: 20px;
+  background-color: var(--blue600);
+}
+
+.nav-menu ul {
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  font-size: 20px;
+  padding: 20px 40px;
+  width: 100px;
+
+}
+
+.nav-menu > ul > li > span {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+p {
+  font-size: 20px;
+  color: white;
+}
+
+button {
+  font-size: 30px;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+/* .dudinha {
+
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+
+} */
+
+.modal {
+
+  width: 50%;
+  margin: auto;
+
+}
+
+footer {
+  background-color: var(--black);
+  padding: 30px;
+  color: aliceblue;
+}
