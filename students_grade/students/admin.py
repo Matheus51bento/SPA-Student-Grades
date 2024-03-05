@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 # from .forms import UserAdminChangeForm
 # from .forms import UserAdminCreationForm
-from .models import Theme, Grade, Student
+from .models import Theme, Grade
 
 if settings.DJANGO_ADMIN_FORCE_ALLAUTH:
     # Force the `admin` sign in process to go through the `django-allauth` workflow:
@@ -22,14 +22,6 @@ class GradeAdmin(admin.ModelAdmin):
     ordering = ["id"]
 
 @admin.register(Theme)
-class ThemeAdmin(admin.ModelAdmin):
-
-    list_display = ["name"]
-    search_fields = ["name"]
-    ordering = ["id"]
-
-
-@admin.register(Student)
 class ThemeAdmin(admin.ModelAdmin):
 
     list_display = ["name"]

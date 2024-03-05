@@ -7,16 +7,25 @@ import ModalNotas from "./components/modal_notas";
 import ModalMateria from "./components/modal_materia";
 
 export default function App() {
-    const [showModalNotas, setShowModalNotas] = useState(false);
+  const [showModalNotas, setShowModalNotas] = useState(false);
+  const [showModalMateria, setShowModalMateria] = useState(false);
 
-    const openModal = () => {
-        setShowModalNotas(true);
-    };
-  
-    const closeModalNota = () => {
-        setShowModalNotas(false);
-    };
-  
+  const openModalMateria = () => {
+    setShowModalMateria(true);
+  };
+
+  const closeModalMateria = () => {
+    setShowModalMateria(false);
+  };
+
+  const openModalNota = () => {
+    setShowModalNotas(true);
+  };
+
+  const closeModalNota = () => {
+    setShowModalNotas(false);
+  };
+
   return (
     <div className="App">
       <h1>Sistema de Notas</h1>
@@ -25,28 +34,29 @@ export default function App() {
           <nav className="nav-menu">
             <ul>
               <li>
-                <span onClick={openModal} style={{ cursor: "pointer" }}>
+                <span onClick={openModalNota} style={{ cursor: "pointer" }}>
                   Nota
                   <img className="add" src={more} alt="Mais" />
                 </span>
               </li>
               <li>
-                <span >
+                <span onClick={openModalMateria} style={{cursor: "pointer"}}>
                   Matéria
                   <img className="add" src={more} alt="Mais" />
                 </span>
               </li>
             </ul>
           </nav>
-          <div className="container blue">
+          <div className="blue">
             <Theme />
           </div>
         </div>
       </div>
       {showModalNotas && <ModalNotas closeModal={closeModalNota} />}
-      
+      {showModalMateria && <ModalMateria closeModal={closeModalMateria} />}
+
       <footer>
-          <div>Por: José Matheus</div>
+        <div>Por: José Matheus</div>
       </footer>
     </div>
   );
