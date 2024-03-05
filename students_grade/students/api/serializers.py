@@ -15,7 +15,7 @@ class ThemeSerializer(serializers.HyperlinkedModelSerializer[Theme]):
 
     class Meta:
         model = Theme
-        fields = ["id", "student", "name", "grades", "average_grade"]
+        fields = ["id", "name", "grades", "average_grade"]
 
     def get_average_grade(self, obj):
         return obj.calculate_average_grade()

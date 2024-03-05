@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/index.css";
 import "../style/theme.css";
 import axios from "axios";
 import trash from "../static/trash.svg";
+import ModalNotas from "./modal_notas";
 
-function Theme() {
-  const [themes, setThemes] = useState([]);
+function Theme({ fetchData, themes, setThemes }) {
+
+  const [showModalNotas, setShowModalNotas] = useState(false);
+
+  const openModalNota = () => {
+    setShowModalNotas(true);
+  };
+
+  const closeModalNota = () => {
+    setShowModalNotas(false);
+  };
+
 
   useEffect(() => {
     fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("http://127.0.0.1:8000/api/themes/");
-      setThemes(response.data);
-    } catch (error) {
-      console.error("Error fetching themes:", error);
-    }
-  };
+  }, [fetchData]);
 
   const deleteGrade = async (themeId, gradeId) => {
     try {
@@ -61,7 +63,12 @@ function Theme() {
             </div>
             <div className="column-container">
               <p>Média: {post.average_grade}</p>
-              <div>
+              
+              <div className="column-container">                
+                <button onClick={openModalNota} style={{ cursor: "pointer" }}>
+                  Adicionar nota
+                </button>
+                {showModalNotas && <ModalNotas closeModal={closeModalNota} />}
                 <button onClick={() => deleteTheme(post.id)}>Excluir matéria</button>
               </div>
             </div>

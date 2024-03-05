@@ -3,12 +3,23 @@ import "./style/App.css";
 import React, { useState } from "react";
 import Theme from "./components/theme";
 import more from "./static/add.png";
-import ModalNotas from "./components/modal_notas";
+
 import ModalMateria from "./components/modal_materia";
+import axios from "axios";
 
 export default function App() {
-  const [showModalNotas, setShowModalNotas] = useState(false);
+  
   const [showModalMateria, setShowModalMateria] = useState(false);
+  const [themes, setThemes] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/api/themes/");
+      setThemes(response.data);
+    } catch (error) {
+      console.error("Error fetching themes:", error);
+    }
+  };
 
   const openModalMateria = () => {
     setShowModalMateria(true);
@@ -18,13 +29,7 @@ export default function App() {
     setShowModalMateria(false);
   };
 
-  const openModalNota = () => {
-    setShowModalNotas(true);
-  };
 
-  const closeModalNota = () => {
-    setShowModalNotas(false);
-  };
 
   return (
     <div className="App">
@@ -34,12 +39,6 @@ export default function App() {
           <nav className="nav-menu">
             <ul>
               <li>
-                <span onClick={openModalNota} style={{ cursor: "pointer" }}>
-                  Nota
-                  <img className="add" src={more} alt="Mais" />
-                </span>
-              </li>
-              <li>
                 <span onClick={openModalMateria} style={{cursor: "pointer"}}>
                   Matéria
                   <img className="add" src={more} alt="Mais" />
@@ -48,12 +47,12 @@ export default function App() {
             </ul>
           </nav>
           <div className="blue">
-            <Theme />
+            <Theme fetchData={fetchData} themes={themes} setThemes={setThemes}/>
           </div>
         </div>
       </div>
-      {showModalNotas && <ModalNotas closeModal={closeModalNota} />}
-      {showModalMateria && <ModalMateria closeModal={closeModalMateria} />}
+
+      {showModalMateria && <ModalMateria closeModal={closeModalMateria} onSubmitSuccess={fetchData} />}
 
       <footer>
         <div>Por: José Matheus</div>
