@@ -11,7 +11,7 @@ class Theme(models.Model):
 
         if grades.exists():
             average_grade = grades.aggregate(average=models.Avg('value'))['average']
-            return average_grade
+            return round(average_grade, 2)
         else:
             return None
 
