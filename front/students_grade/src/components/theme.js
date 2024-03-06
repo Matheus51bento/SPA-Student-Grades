@@ -6,10 +6,10 @@ import trash from "../static/trash.svg";
 import ModalNotas from "./modal_notas";
 
 function Theme({ fetchData, themes, setThemes }) {
-
   const [showModalNotas, setShowModalNotas] = useState(false);
 
-  const openModalNota = () => {
+  const openModalNota = (id) => {
+    setModalId(id);
     setShowModalNotas(true);
   };
 
@@ -17,10 +17,9 @@ function Theme({ fetchData, themes, setThemes }) {
     setShowModalNotas(false);
   };
 
-
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   const deleteGrade = async (themeId, gradeId) => {
     try {
@@ -40,8 +39,17 @@ function Theme({ fetchData, themes, setThemes }) {
     }
   };
 
+  const [modalId, setModalId] = useState(0);
+
   return (
     <div style={{ width: "100%" }}>
+      {showModalNotas && (
+        <ModalNotas
+          closeModal={closeModalNota}
+          initialThemeId={modalId}
+          onSubmitSuccess={fetchData}
+        />
+      )}
       {themes.map((post) => {
         return (
           <div key={post.id} className="theme container">
@@ -63,13 +71,17 @@ function Theme({ fetchData, themes, setThemes }) {
             </div>
             <div className="column-container">
               <p>Média: {post.average_grade}</p>
-              
-              <div className="column-container">                
-                <button onClick={openModalNota} style={{ cursor: "pointer" }}>
+
+              <div className="column-container">
+                <button
+                  onClick={() => openModalNota(post.id)}
+                  style={{ cursor: "pointer" }}
+                >
                   Adicionar nota
                 </button>
-                {showModalNotas && <ModalNotas closeModal={closeModalNota} />}
-                <button onClick={() => deleteTheme(post.id)}>Excluir matéria</button>
+                <button onClick={() => deleteTheme(post.id)}>
+                  Excluir matéria
+                </button>
               </div>
             </div>
           </div>
